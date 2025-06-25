@@ -19,7 +19,7 @@ The proposed metrics are implemented in `utilities/count_pixels.py`, with the fo
 - `count_pixels_grad`
 - `count_corr_mu`
 
-These functions are used to calculate the **Uncertainty Consistency Coefficient (UCC)** and **Uncertainty Ranking (UR)** metrics under different signal settings (e.g., gradient, distance map, mean prediction).
+These functions are used to calculate the **Uncertainty Consistency Coefficient (UCC)** and **Uncertainty Ratio (UR)** metrics under different signal settings (e.g., gradient, distance map, mean prediction).
 
 ### 📌 Input Requirements
 
