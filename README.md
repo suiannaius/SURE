@@ -1,5 +1,7 @@
 # Uncertainty-Supervised Interpretable and Robust Evidential Segmentation
 
+**SURE: Supervised UnceRtainty Estimation — making uncertainty more certain.**
+
 This repository contains the official implementation of the **MICCAI 2025 paper**:  
 **"Uncertainty-Supervised Interpretable and Robust Evidential Segmentation"**.
 
