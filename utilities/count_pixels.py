@@ -64,7 +64,7 @@ def count_pixels_d(u, u_noised, d, batch_size, device, threshold=4, epsilon=1e-3
         delta_u_diff = torch.triu(delta_u.unsqueeze(0) - delta_u.unsqueeze(0).t(), diagonal=0)
         
         mul = d_diff * delta_u_diff
-        num = (mul <= epsilon).sum()
+        num = (mul <= epsilon).sum() - (d_diff == 0).sum() + (L * (L + 1) / 2)
         ratio += ( num - (L * (L + 1) / 2) ) / (L * (L - 1) / 2)
     
     return ratio / batch_size, corr / batch_size
@@ -106,7 +106,7 @@ def count_pixels_grad(u, grad, d, batch_size, device, threshold=1, epsilon=1e-3,
         grad_diff = torch.triu(grad_boundary.unsqueeze(0) - grad_boundary.unsqueeze(0).t(), diagonal=0)
         
         mul = u_diff * grad_diff
-        num = (mul <= epsilon).sum()
+        num = (mul <= epsilon).sum()  - (grad_diff == 0).sum() + (L * (L + 1) / 2)
         ratio += ( num - (L * (L + 1) / 2) ) / (L * (L - 1) / 2)
 
         corr += corr_i
@@ -147,7 +147,7 @@ def count_pixels_d_chunk(u, u_noised, d, batch_size, device, threshold=4, chunk_
                 delta_u_chunk = torch.triu(delta_u[start:end].unsqueeze(0) - delta_u[start:end].unsqueeze(0).t(), diagonal=0)  # [chunk_size, chunk_size]
 
                 mul = d_chunk * delta_u_chunk  # [chunk_size, chunk_size]
-                num = (mul <= epsilon).sum()
+                num = (mul <= epsilon).sum() - (d_chunk == 0).sum() + (N * (N + 1) / 2)
                 temp = ( num - (N * (N + 1) / 2) ) / (N * (N - 1) / 2)
                 assert temp >= 0.0 and temp <= 1.0, f"Ratio {temp} is not within [0.0, 1.0]"
                 ratio += ( num - (N * (N + 1) / 2) ) / (N * (N - 1) / 2) / loop
