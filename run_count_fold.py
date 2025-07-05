@@ -19,7 +19,7 @@ from training.trainPU import model_PU, Uentropy
 from torch.utils.tensorboard import SummaryWriter
 
 
-def run_count(project_name, method='base', epsilon=1e-3):
+def run_count(project_name, method='base'):
     
     args = load_args('./configs/' + project_name + '_config.json')
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -234,12 +234,12 @@ def run_count(project_name, method='base', epsilon=1e-3):
                         u_mu1 = Uentropy(logits_mu1, num_classes).view(-1, 1)
                         u_mu2 = Uentropy(logits_mu2, num_classes).view(-1, 1)
 
-                ratio_mu = count_pixels_mu(u_mu1, u_mu2, mu1, mu2, d, device, threshold=4, epsilon=epsilon)
+                ratio_mu = count_pixels_mu(u_mu1, u_mu2, mu1, mu2, d, device, threshold=4)
                 
                 corr_mu = count_corr_mu(u_mu1, u_mu2, mu1, mu2, d, device, threshold=4)
-                ratio_d, corr_d = count_pixels_d_chunk(u, u_mu1, d, args.batch_size, device, threshold=4, epsilon=epsilon)
+                ratio_d, corr_d = count_pixels_d_chunk(u, u_mu1, d, args.batch_size, device, threshold=4)
                 ratio_grad, corr_g = count_pixels_grad(u, gradient_blurred, d, args.batch_size, 
-                                               device, threshold=1, epsilon=epsilon)
+                                               device, threshold=1)
                 total_corr_mu += corr_mu.item()
                 total_ratio_mu += ratio_mu.item()
                 total_corr_d += corr_d.item()
@@ -303,7 +303,7 @@ def run_count(project_name, method='base', epsilon=1e-3):
     }
     print(all_results)
 
-    json_path = f'./results/count_all/{dataset}/{project_name}_eps-{str(epsilon)}.json'
+    json_path = f'./results/count_all/{dataset}/{project_name}.json'
     os.makedirs(os.path.dirname(json_path), exist_ok=True)
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, indent=4, separators=(',', ': '), ensure_ascii=False)
@@ -312,4 +312,4 @@ def run_count(project_name, method='base', epsilon=1e-3):
 if __name__ == "__main__":
     
     project_name = 'Task_999_2025-06-25'
-    run_count(project_name, method='base',epsilon=1e-3)
+    run_count(project_name, method='base')

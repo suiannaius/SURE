@@ -18,7 +18,7 @@ from model.cFlowNet import cFlowNet
 from torch.utils.tensorboard import SummaryWriter
 
 
-def run_inference(project_name, consider_spacing=False, method='base'):
+def run_robust(project_name, consider_spacing=False, method='base'):
     
     datapath = '/home/liyuzhu/MERU+EDL/ACDC2017/data/ACDC/training'
     args = load_args('./configs/' + project_name + '_config.json')
@@ -266,4 +266,4 @@ if __name__ == "__main__":
     project_name = 'Task_999_2025-06-25'
     method = 'base'  # 'base' / 'devis' / 'pu' / 'flow' / 'glow' / 'udrop'
     consider_spacing = True
-    run_inference(project_name, consider_spacing=consider_spacing, method=method)
+    run_robust(project_name, consider_spacing=consider_spacing, method=method)

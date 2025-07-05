@@ -49,7 +49,6 @@ def getArgs():
     parser.add_argument('--num_patch', default=3, type=int, help="patches of each image to calculate noise loss")
     parser.add_argument('--d_threshold', default=4, type=int)
     parser.add_argument('--d_eps', default=0, type=int)
-    parser.add_argument('--epsilon', default=0., type=float)
     parser.add_argument('--backbone', default='U', type=str, help="U/V/AU")
     parser.add_argument('--base_channels', default=8, type=int, help="base channels [default: 8]")
     parser.add_argument('--use_pretrain', action='store_true', help="Whether load parameters from pretrained models. True/False")
