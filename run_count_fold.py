@@ -238,8 +238,7 @@ def run_count(project_name, method='base'):
                 
                 corr_mu = count_corr_mu(u_mu1, u_mu2, mu1, mu2, d, device, threshold=4)
                 ratio_d, corr_d = count_pixels_d_chunk(u, u_mu1, d, args.batch_size, device, threshold=4)
-                ratio_grad, corr_g = count_pixels_grad(u, gradient_blurred, d, args.batch_size, 
-                                               device, threshold=1)
+                ratio_grad, corr_g = count_pixels_grad(u, gradient_blurred, d, args.batch_size, device, threshold=1)
                 total_corr_mu += corr_mu.item()
                 total_ratio_mu += ratio_mu.item()
                 total_corr_d += corr_d.item()
